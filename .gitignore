@@ -20,5 +20,9 @@ pnpm-debug.log*
 # macOS-specific files
 .DS_Store
 
+# Google Drive sync temp files
+.tmp.driveupload/
+.tmp.drivedownload/
+
 # jetbrains setting folder
 .idea/
