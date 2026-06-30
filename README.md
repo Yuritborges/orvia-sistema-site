@@ -140,4 +140,4 @@ Esta landing page apresenta uma **versão demonstração para portfólio**. Todo
 
 **Marlyson Iury Taveira Borges**
 
-© 2026 · ORVIA — Ordem na compra. Visão completa.
+© 2026 · ORVIA — Ordem na compra. Gestão na Obra.

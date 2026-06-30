@@ -7,8 +7,9 @@ import FeatureCard from '../components/FeatureCard.astro';
 import ScreenshotGallery from '../components/ScreenshotGallery.astro';
 import Pricing from '../components/Pricing.astro';
 import CTA from '../components/CTA.astro';
+import ContactForm from '../components/ContactForm.astro';
 import Footer from '../components/Footer.astro';
-import { PROBLEMS, FEATURES, INSTALL_STEPS, TECH_STACK, SITE, LINKS } from '../data/site';
+import { PROBLEMS, FEATURES, ONBOARDING, DIFFERENTIALS, SITE, LINKS } from '../data/site';
 ---
 
 <Layout>
@@ -68,17 +69,37 @@ import { PROBLEMS, FEATURES, INSTALL_STEPS, TECH_STACK, SITE, LINKS } from '../d
     <!-- Galeria -->
     <ScreenshotGallery />
 
-    <!-- Como funciona (Demo) -->
-    <section id="demo" class="py-20 sm:py-28 surface-alt" aria-labelledby="demo-heading">
+    <!-- Diferenciais -->
+    <section class="py-20 sm:py-28" aria-labelledby="diferenciais-heading">
       <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
-          id="demo-heading"
-          title="Como funciona — instalação da demo"
-          subtitle="Simples de instalar, pronto para explorar. Sem configuração complexa."
+          id="diferenciais-heading"
+          title="Por que o ORVIA"
+          subtitle="Mais que um software: um sistema feito para a rotina de compras das suas obras, com gente por trás para implantar e dar suporte."
         />
-        <ol class="mx-auto grid max-w-4xl gap-4 sm:grid-cols-2 lg:grid-cols-3" role="list">
+        <div class="grid gap-5 sm:grid-cols-3">
+          {DIFFERENTIALS.map((item) => (
+            <FeatureCard
+              title={item.title}
+              description={item.description}
+              icon={item.icon}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Implantação -->
+    <section id="implantacao" class="py-20 sm:py-28 surface-alt" aria-labelledby="implantacao-heading">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <SectionHeading
+          id="implantacao-heading"
+          title="Como colocamos o ORVIA na sua operação"
+          subtitle="Do primeiro contato ao dia a dia rodando — você é acompanhado em cada etapa."
+        />
+        <ol class="mx-auto grid max-w-4xl gap-4 sm:grid-cols-2 lg:grid-cols-4" role="list">
           {
-            INSTALL_STEPS.map((step, index) => (
+            ONBOARDING.map((step, index) => (
               <li class="card p-5">
                 <div class="mb-3 flex items-center gap-3">
                   <span
@@ -94,64 +115,26 @@ import { PROBLEMS, FEATURES, INSTALL_STEPS, TECH_STACK, SITE, LINKS } from '../d
             ))
           }
         </ol>
-        <p class="mx-auto mt-8 max-w-2xl text-center text-sm text-muted">
-          Instalador:{' '}
-          <a
-            href={LINKS.installer}
-            class="font-medium text-[var(--color-orvia-orange)] hover:underline"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            ORVIA_Setup_{SITE.version}.exe
-          </a>{' '}
-          — disponível na{' '}
-          <a
-            href={LINKS.release}
-            class="font-medium text-[var(--color-orvia-orange)] hover:underline"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Release v{SITE.version}
-          </a>
-        </p>
       </div>
     </section>
 
-    <!-- Stack técnica -->
-    <section class="py-20 sm:py-28" aria-labelledby="stack-heading">
-      <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <SectionHeading
-          id="stack-heading"
-          title="Stack técnica"
-          subtitle="Tecnologias escolhidas para entregar um produto desktop standalone — sem servidor, sem nuvem obrigatória."
-        />
-        <div class="flex flex-wrap justify-center gap-3">
-          {TECH_STACK.map((tech) => (
-            <span class="tech-badge">{tech}</span>
-          ))}
-        </div>
-        <p class="mx-auto mt-6 max-w-2xl text-center text-sm text-muted">
-          Arquitetura pensada para operação offline em canteiros e escritórios — dados locais, PDFs nativos e instalador profissional.
-        </p>
-      </div>
-    </section>
-
-    <!-- White-label -->
-    <section class="py-20 sm:py-28 surface-alt" aria-labelledby="whitelabel-heading">
+    <!-- Personalização -->
+    <section class="py-20 sm:py-28" aria-labelledby="personalizacao-heading">
       <div class="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
         <div class="section-accent mx-auto mb-4"></div>
-        <h2 id="whitelabel-heading" class="font-serif mb-4 text-3xl sm:text-4xl">
-          White-label — base customizável
+        <h2 id="personalizacao-heading" class="font-serif mb-4 text-3xl sm:text-4xl">
+          A sua marca, o seu processo
         </h2>
         <p class="text-secondary leading-relaxed">
-          A mesma arquitetura pode ser personalizada por cliente: marca, logos, empresas faturadoras e fluxos específicos —
-          sem expor dados sensíveis no repositório público. O ORVIA demonstra a capacidade de construir produto real,
-          pronto para adaptação B2B.
+          O ORVIA se adapta à sua empresa: documentos com a sua logo e das suas faturadoras,
+          campos e fluxos ajustados à forma como você compra, e operação multi-obra ou
+          multi-empresa quando o seu negócio exigir. Você não molda a sua rotina ao sistema —
+          o sistema acompanha a sua rotina.
         </p>
       </div>
     </section>
 
-    <!-- Planos white-label (ilustrativos) -->
+    <!-- Planos -->
     <Pricing />
 
     <!-- Sobre o autor -->
@@ -165,11 +148,12 @@ import { PROBLEMS, FEATURES, INSTALL_STEPS, TECH_STACK, SITE, LINKS } from '../d
           >
             MI
           </div>
-          <h2 id="sobre-heading" class="font-serif mb-2 text-2xl sm:text-3xl">{SITE.author}</h2>
+          <h2 id="sobre-heading" class="font-serif mb-2 text-2xl sm:text-3xl">Quem está por trás do ORVIA</h2>
           <p class="mb-6 text-secondary leading-relaxed">
-            Desenvolvedor full-stack e desktop com foco em soluções práticas para operação.
-            O ORVIA nasceu da necessidade real de organizar compras em obras — e prova que entrego produto completo:
-            interface, PDF, instalador e arquitetura, não apenas código.
+            O ORVIA é desenvolvido por {SITE.author}, com foco em soluções práticas para a
+            operação de construtoras. O sistema nasceu da rotina real de compras em obras —
+            por isso o atendimento é direto com quem entende do produto e do seu dia a dia,
+            da implantação ao suporte.
           </p>
           <div class="flex flex-col items-center justify-center gap-3 sm:flex-row">
             <a
@@ -201,6 +185,9 @@ import { PROBLEMS, FEATURES, INSTALL_STEPS, TECH_STACK, SITE, LINKS } from '../d
 
     <!-- CTA Final -->
     <CTA variant="footer" />
+
+    <!-- Contato -->
+    <ContactForm />
   </main>
 
   <Footer />

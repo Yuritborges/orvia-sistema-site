@@ -356,6 +356,46 @@ h3 {
 }
 
 /* -----------------------------------------------------------
+   8b. Campos de formulário
+   ----------------------------------------------------------- */
+.form-input {
+  width: 100%;
+  padding: 0.7rem 0.9rem;
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color-strong);
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 0.9375rem;
+  line-height: 1.4;
+  transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+
+.form-input::placeholder {
+  color: var(--text-muted);
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--color-orvia-orange);
+  box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.15);
+}
+
+textarea.form-input {
+  resize: vertical;
+  min-height: 6rem;
+}
+
+select.form-input {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7a85'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1.1rem;
+  padding-right: 2.4rem;
+}
+
+/* -----------------------------------------------------------
    9. Galeria (carrossel)
    ----------------------------------------------------------- */
 .gallery-track {

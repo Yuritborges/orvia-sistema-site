@@ -16,18 +16,15 @@ const pageUrl = Astro.url.href;
 // OG/Twitter exigem URL absoluta da imagem
 const ogImageUrl = new URL(ASSETS.ogImage, Astro.site ?? Astro.url.origin).href;
 
-// Schema.org — dados estruturados do produto desktop apresentado na landing.
+// Schema.org — dados estruturados do produto comercial apresentado na landing.
 const structuredData = {
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
-  name: 'ORVIA — Pedidos de Compra',
+  name: 'ORVIA — Gestão de Compras para Construção Civil',
   description: SITE.description,
   applicationCategory: 'BusinessApplication',
   operatingSystem: 'Windows 10, Windows 11',
-  softwareVersion: SITE.version,
   url: pageUrl,
-  downloadUrl: LINKS.release,
-  installUrl: LINKS.installer,
   screenshot: ASSETS.ogImage,
   image: ASSETS.ogImage,
   inLanguage: 'pt-BR',
@@ -38,9 +35,9 @@ const structuredData = {
   },
   offers: {
     '@type': 'Offer',
-    price: '0',
     priceCurrency: 'BRL',
     availability: 'https://schema.org/InStock',
+    url: pageUrl,
   },
 };
 ---

@@ -17,18 +17,40 @@ import { SITE, LINKS, ASSETS } from '../data/site';
         </p>
       </div>
 
-      <!-- Links -->
+      <!-- Navegação -->
       <div>
-        <h3 class="mb-3 text-sm font-bold uppercase tracking-wider text-muted">Links</h3>
+        <h3 class="mb-3 text-sm font-bold uppercase tracking-wider text-muted">Navegação</h3>
         <ul class="space-y-2 text-sm">
           <li>
-            <a href={LINKS.github} class="text-secondary hover:text-[var(--color-orvia-orange)]" target="_blank" rel="noopener noreferrer">
-              GitHub — Repositório
+            <a href="#funcionalidades" class="text-secondary hover:text-[var(--color-orvia-orange)]">
+              Funcionalidades
             </a>
           </li>
           <li>
-            <a href={LINKS.release} class="text-secondary hover:text-[var(--color-orvia-orange)]" target="_blank" rel="noopener noreferrer">
-              Release v{SITE.version}
+            <a href="#telas" class="text-secondary hover:text-[var(--color-orvia-orange)]">
+              Telas do sistema
+            </a>
+          </li>
+          <li>
+            <a href="#planos" class="text-secondary hover:text-[var(--color-orvia-orange)]">
+              Planos
+            </a>
+          </li>
+          <li>
+            <a href="#contato" class="text-secondary hover:text-[var(--color-orvia-orange)]">
+              Contato
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Contato -->
+      <div>
+        <h3 class="mb-3 text-sm font-bold uppercase tracking-wider text-muted">Atendimento</h3>
+        <ul class="space-y-2 text-sm">
+          <li>
+            <a href={LINKS.whatsapp} class="text-secondary hover:text-[var(--color-orvia-orange)]" target="_blank" rel="noopener noreferrer">
+              WhatsApp comercial
             </a>
           </li>
           <li>
@@ -36,20 +58,9 @@ import { SITE, LINKS, ASSETS } from '../data/site';
               LinkedIn
             </a>
           </li>
-          <li>
-            <a href={LINKS.whatsapp} class="text-secondary hover:text-[var(--color-orvia-orange)]" target="_blank" rel="noopener noreferrer">
-              WhatsApp
-            </a>
-          </li>
         </ul>
-      </div>
-
-      <!-- Aviso legal -->
-      <div>
-        <h3 class="mb-3 text-sm font-bold uppercase tracking-wider text-muted">Aviso</h3>
-        <p class="text-sm leading-relaxed text-secondary">
-          Versão demonstração para portfólio. Todos os dados exibidos são fictícios — nenhum dado real de clientes.
-          Código disponível no GitHub.
+        <p class="mt-3 text-sm leading-relaxed text-secondary">
+          Sistema de gestão de compras para construção civil.
         </p>
       </div>
     </div>

@@ -1,5 +1,9 @@
 ---
-import { NAV_ITEMS, ASSETS, LINKS } from '../data/site';
+import { NAV_ITEMS, ASSETS, waLink } from '../data/site';
+
+const demoMessage = waLink(
+  'Olá! Gostaria de agendar uma demonstração do ORVIA para a minha construtora.'
+);
 ---
 
 <header
@@ -52,8 +56,8 @@ import { NAV_ITEMS, ASSETS, LINKS } from '../data/site';
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
         </svg>
       </button>
-      <a href={LINKS.release} class="btn btn-primary text-sm !py-2" target="_blank" rel="noopener noreferrer">
-        Baixar demo
+      <a href={demoMessage} class="btn btn-primary text-sm !py-2" target="_blank" rel="noopener noreferrer">
+        Solicitar demonstração
       </a>
     </div>
 
@@ -109,12 +113,12 @@ import { NAV_ITEMS, ASSETS, LINKS } from '../data/site';
         ))
       }
       <a
-        href={LINKS.release}
+        href={demoMessage}
         class="btn btn-primary mt-2 w-full"
         target="_blank"
         rel="noopener noreferrer"
       >
-        Baixar demo (Windows)
+        Solicitar demonstração
       </a>
     </div>
   </nav>

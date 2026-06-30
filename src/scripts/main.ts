@@ -169,12 +169,80 @@ function initLightbox(): void {
   });
 }
 
+function initContactForm(): void {
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  const status = document.getElementById('cf-status');
+  if (!form) return;
+
+  const whatsapp = form.dataset.whatsapp ?? '';
+  const hasEndpoint = form.dataset.hasEndpoint === 'true';
+
+  const setStatus = (msg: string, ok: boolean): void => {
+    if (!status) return;
+    status.textContent = msg;
+    status.style.color = ok ? 'var(--color-orvia-orange-dark)' : '#c0392b';
+  };
+
+  const buildWhatsappMessage = (data: FormData): string => {
+    const get = (k: string) => String(data.get(k) ?? '').trim();
+    const linhas = [
+      'Olá! Quero saber mais sobre o ORVIA.',
+      '',
+      `Nome: ${get('nome')}`,
+      `Empresa: ${get('empresa')}`,
+      `Telefone: ${get('telefone')}`,
+    ];
+    if (get('email')) linhas.push(`E-mail: ${get('email')}`);
+    if (get('plano')) linhas.push(`Plano de interesse: ${get('plano')}`);
+    if (get('mensagem')) linhas.push('', get('mensagem'));
+    return linhas.join('\n');
+  };
+
+  form.addEventListener('submit', async (e) => {
+    if (!form.reportValidity()) return;
+
+    // Sem endpoint configurado: envia pelo WhatsApp.
+    if (!hasEndpoint) {
+      e.preventDefault();
+      const msg = buildWhatsappMessage(new FormData(form));
+      window.open(`https://wa.me/${whatsapp}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
+      setStatus('Abrimos o WhatsApp para você concluir o envio.', true);
+      return;
+    }
+
+    // Com endpoint: envio assíncrono (sem sair da página).
+    e.preventDefault();
+    const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement | null;
+    if (btn) btn.disabled = true;
+    setStatus('Enviando…', true);
+
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { Accept: 'application/json' },
+      });
+      if (res.ok) {
+        form.reset();
+        setStatus('Mensagem enviada! Retornamos no mesmo dia útil.', true);
+      } else {
+        setStatus('Não foi possível enviar agora. Tente pelo WhatsApp.', false);
+      }
+    } catch {
+      setStatus('Falha de conexão. Tente novamente ou use o WhatsApp.', false);
+    } finally {
+      if (btn) btn.disabled = false;
+    }
+  });
+}
+
 function init(): void {
   initTheme();
   initMobileMenu();
   initHeaderScroll();
   initGallery();
   initLightbox();
+  initContactForm();
 }
 
 if (document.readyState === 'loading') {

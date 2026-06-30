@@ -1,17 +1,17 @@
 ---
-import { PLANS, LINKS } from '../data/site';
+import { PLANS, waLink } from '../data/site';
 ---
 
 <section id="planos" class="py-20 sm:py-28" aria-labelledby="planos-heading">
   <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
     <div class="mb-10 text-center">
-      <span class="eyebrow">White-label · sob medida</span>
+      <span class="eyebrow">Planos</span>
       <h2 id="planos-heading" class="font-serif mb-3 text-3xl sm:text-4xl">
-        Planos de customização
+        Escolha o plano da sua operação
       </h2>
       <p class="mx-auto max-w-2xl text-secondary">
-        Escopos ilustrativos de como a base do ORVIA pode ser adaptada por cliente.
-        Sem valores fixos — cada implantação é conversada.
+        Do controle de uma obra à operação multi-empresa. Cada implantação é dimensionada
+        com você — fale com a gente e receba uma proposta sob medida.
       </p>
     </div>
 
@@ -52,12 +52,12 @@ import { PLANS, LINKS } from '../data/site';
             </ul>
 
             <a
-              href={LINKS.whatsapp}
+              href={waLink(plan.whatsapp)}
               class:list={['btn w-full', plan.featured ? 'btn-primary' : 'btn-secondary']}
               target="_blank"
               rel="noopener noreferrer"
             >
-              Falar sobre customização
+              {plan.cta}
             </a>
           </article>
         ))
@@ -65,8 +65,8 @@ import { PLANS, LINKS } from '../data/site';
     </div>
 
     <p class="mx-auto mt-8 max-w-2xl text-center text-sm text-muted">
-      Projeto de portfólio · os planos acima ilustram o potencial white-label e não
-      representam uma oferta comercial.
+      Valores sob consulta. A escolha do plano não gera cobrança automática — primeiro
+      conversamos para entender a sua operação e montar a proposta.
     </p>
   </div>
 </section>

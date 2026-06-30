@@ -1,4 +1,4 @@
-/** Constantes e conteúdo da landing page ORVIA */
+/** Constantes e conteúdo da landing page comercial ORVIA */
 
 /** Prefixo de base (respeita o `base` do astro.config para GitHub Pages). */
 const BASE = import.meta.env.BASE_URL; // ex.: "/orvia-sistema-site" ou ".../"
@@ -6,26 +6,36 @@ const asset = (path: string) =>
   `${BASE.replace(/\/$/, '')}/${path.replace(/^\//, '')}`;
 
 export const SITE = {
-  title: 'ORVIA — Pedidos de Compra | Sistema desktop para construção civil',
+  title: 'ORVIA — Sistema de Gestão de Compras para Construção Civil',
   description:
-    'Sistema standalone para pedidos, cotações, ferramentas e locações. Demo portfólio com instalador Windows. Python · PySide6 · SQLite.',
+    'Centralize pedidos, cotações, ferramentas e locações das suas obras em um único sistema. Padronize processos, ganhe visibilidade e reduza custos de compra.',
   keywords:
-    'pedidos de compra, construção civil, cotação comparativa, sistema desktop, Python, portfólio dev',
+    'sistema de compras construção civil, gestão de obras, cotação de fornecedores, controle de pedidos, software para construtora, pedido de compra',
   author: 'Marlyson Iury Taveira Borges',
-  tagline: 'Ordem na compra. Visão completa.',
+  tagline: 'Ordem na compra. Gestão na Obra.',
   brandMeaning: 'Ordem · Visão · Inteligência · Ação',
-  version: '2.1.2',
   year: 2026,
 } as const;
 
+/** Número de WhatsApp comercial (formato internacional, só dígitos). */
+export const WHATSAPP_NUMBER = '5511910386339';
+
+/**
+ * Endpoint do formulário de contato (serviço estático, ex.: Formspree / Web3Forms).
+ * Substitua pelo seu endpoint real. Enquanto estiver vazio, o formulário
+ * envia a mensagem direto pelo WhatsApp como alternativa.
+ */
+export const FORM_ENDPOINT = '';
+
 export const LINKS = {
-  github: 'https://github.com/Yuritborges/orvia-sistema',
-  release: 'https://github.com/Yuritborges/orvia-sistema/releases/tag/v2.1.2',
-  installer:
-    'https://github.com/Yuritborges/orvia-sistema/releases/download/v2.1.2/ORVIA_Setup_2.1.2.exe',
+  whatsapp: `https://wa.me/${WHATSAPP_NUMBER}`,
   linkedin: 'https://www.linkedin.com/in/marlyson-iury-taveira-borges-6311aa331',
-  whatsapp: 'https://wa.me/5511910386339',
 } as const;
+
+/** Monta um link de WhatsApp com mensagem pré-preenchida. */
+export function waLink(message: string): string {
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+}
 
 export const ASSETS = {
   /** Logo horizontal tratado (fundo transparente) — tema claro */
@@ -46,7 +56,6 @@ export const NAV_ITEMS = [
   { label: 'Início', href: '#inicio' },
   { label: 'Funcionalidades', href: '#funcionalidades' },
   { label: 'Telas', href: '#telas' },
-  { label: 'Demo', href: '#demo' },
   { label: 'Planos', href: '#planos' },
   { label: 'Sobre', href: '#sobre' },
   { label: 'Contato', href: '#contato' },
@@ -64,7 +73,7 @@ export const FEATURES = [
     id: 'pedido',
     title: 'Pedido de Compra',
     description:
-      'Formulário completo com autocomplete, PDF oficial com logo da empresa faturadora e pagamento em etapas.',
+      'Formulário completo com autocomplete, PDF oficial com a logo da sua empresa e pagamento em etapas.',
     icon: 'clipboard',
   },
   {
@@ -96,7 +105,7 @@ export const FEATURES = [
   {
     id: 'cadastros',
     title: 'Cadastros',
-    description: 'Fornecedores, obras e funcionários com dados locais em JSON.',
+    description: 'Fornecedores, obras e funcionários com base de dados centralizada.',
     icon: 'database',
   },
 ] as const;
@@ -135,83 +144,103 @@ export const SCREENSHOTS = [
   {
     src: asset('screenshots/cadastros.png'),
     alt: 'Tela de cadastros de fornecedores, obras e funcionários',
-    caption: 'Cadastros — base de dados local',
+    caption: 'Cadastros — base de dados centralizada',
   },
 ] as const;
 
-export const INSTALL_STEPS = [
+/** Etapas de implantação — como a ORVIA entra na operação do cliente. */
+export const ONBOARDING = [
   {
-    title: 'Windows 10 ou 11',
-    description: 'Compatível com as versões mais usadas em escritórios e canteiros de obras.',
-  },
-  {
-    title: 'Instalador profissional',
-    description: 'Gerado com Inno Setup — instalação guiada como qualquer software corporativo.',
-  },
-  {
-    title: 'Programa em Arquivos de Programas',
-    description: 'Atalho no menu Iniciar. Sem dependências externas para rodar no dia a dia.',
-  },
-  {
-    title: 'Dados em %LOCALAPPDATA%\\ORVIA\\',
-    description: 'Banco e configurações ficam no perfil do usuário — sem precisar de admin no uso diário.',
-  },
-  {
-    title: 'Demo carrega automaticamente',
-    description: 'Na primeira execução, dados fictícios de demonstração são carregados sozinhos.',
-  },
-  {
-    title: 'Aviso SmartScreen',
+    title: 'Apresentação',
     description:
-      'O Windows pode exibir alerta de segurança — normal para executável demo não assinado digitalmente.',
+      'Mostramos o sistema funcionando e entendemos a realidade das suas obras e do seu time de compras.',
+  },
+  {
+    title: 'Implantação',
+    description:
+      'Instalamos, configuramos a sua marca nos documentos e cadastramos os dados iniciais da operação.',
+  },
+  {
+    title: 'Treinamento',
+    description:
+      'Capacitamos a equipe para usar o sistema no dia a dia, do pedido à confirmação na obra.',
+  },
+  {
+    title: 'Suporte contínuo',
+    description:
+      'Acompanhamento próximo e suporte para manter a operação rodando sem travas, mês a mês.',
   },
 ] as const;
 
-export const TECH_STACK = [
-  'Python 3.11+',
-  'PySide6 (Qt)',
-  'SQLite',
-  'ReportLab (PDF)',
-  'PyInstaller',
-  'Inno Setup',
+export const DIFFERENTIALS = [
+  {
+    title: 'Feito para construção civil',
+    description:
+      'Não é um ERP genérico: cada módulo nasceu da rotina real de compras em obras.',
+    icon: 'tool',
+  },
+  {
+    title: 'Documentos com a sua marca',
+    description:
+      'PDFs de pedido profissionais, com a logo da sua empresa e das suas faturadoras.',
+    icon: 'clipboard',
+  },
+  {
+    title: 'Implantação e suporte',
+    description:
+      'Você não fica sozinho: instalação, treinamento e suporte fazem parte do serviço.',
+    icon: 'chart',
+  },
 ] as const;
 
 /**
- * Planos white-label (ilustrativos) — escopo de customização por cliente.
- * Sem preços reais: "Sob consulta". Não é venda; é demonstração de portfólio.
+ * Planos comerciais — escopo de produto e serviço por porte de operação.
+ * Valores sob consulta; cada implantação é dimensionada com o cliente.
  */
 export const PLANS = [
   {
-    name: 'Essencial',
-    tagline: 'O produto base, pronto para rodar.',
+    name: 'Standard',
+    tagline: 'Para organizar as compras de uma obra com profissionalismo.',
     featured: false,
+    cta: 'Quero o Standard',
+    whatsapp:
+      'Olá! Tenho interesse no plano Standard do ORVIA. Pode me passar mais informações?',
     features: [
-      'Todos os 6 módulos do sistema',
-      'Dados 100% locais (offline)',
-      'PDF de pedidos com a sua marca',
-      'Instalador Windows (Inno Setup)',
+      'Os 6 módulos do sistema',
+      'Pedidos com PDF na sua marca',
+      'Cotação comparativa de fornecedores',
+      'Instalação e configuração inicial',
+      'Suporte por WhatsApp',
     ],
   },
   {
-    name: 'Profissional',
-    tagline: 'Personalização white-label completa.',
+    name: 'Professional',
+    tagline: 'Para construtoras que tocam várias obras ao mesmo tempo.',
     featured: true,
+    cta: 'Quero o Professional',
+    whatsapp:
+      'Olá! Tenho interesse no plano Professional do ORVIA. Pode me passar mais informações?',
     features: [
-      'Tudo do Essencial',
-      'Marca, cores e logos faturadoras',
+      'Tudo do Standard',
+      'Várias obras simultâneas',
       'Importação de locações via Excel',
-      'Ajustes de campos e fluxos',
+      'Personalização de campos e fluxos',
+      'Treinamento da equipe',
     ],
   },
   {
-    name: 'Empresarial',
-    tagline: 'Operação multi-obra sob medida.',
+    name: 'Premium',
+    tagline: 'Operação multi-empresa, sob medida para o seu processo.',
     featured: false,
+    cta: 'Quero o Premium',
+    whatsapp:
+      'Olá! Tenho interesse no plano Premium do ORVIA. Pode me passar mais informações?',
     features: [
-      'Tudo do Profissional',
+      'Tudo do Professional',
       'Multi-empresa / multi-obra',
+      'Empresas faturadoras e marca por cliente',
       'Integrações sob medida',
-      'Treinamento da equipe',
+      'Suporte prioritário',
     ],
   },
 ] as const;
