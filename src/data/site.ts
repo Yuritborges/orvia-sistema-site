@@ -24,7 +24,7 @@ export const LINKS = {
   installer:
     'https://github.com/Yuritborges/orvia-sistema/releases/download/v2.1.2/ORVIA_Setup_2.1.2.exe',
   linkedin: 'https://www.linkedin.com/in/marlyson-iury-taveira-borges-6311aa331',
-  whatsapp: 'https://wa.me/5519910386339',
+  whatsapp: 'https://wa.me/5511910386339',
 } as const;
 
 export const ASSETS = {

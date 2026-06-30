@@ -28,34 +28,34 @@
 :root {
   color-scheme: light;
 
-  /* Superfícies */
-  --bg-base: #faf9f5;
-  --bg-page: var(--bg-base); /* alias usado por body */
+  /* Superfícies — branco limpo, corporativo (estilo TOTVS) */
+  --bg-base: #ffffff;
+  --bg-page: var(--bg-base);
   --bg-surface: #ffffff;
-  --bg-surface-alt: #f2f0e9;
-  --bg-header: rgba(250, 249, 245, 0.85);
+  --bg-surface-alt: #f6f8fa;
+  --bg-header: rgba(255, 255, 255, 0.88);
 
-  /* Texto (muted levemente mais escuro que o arquivo base p/ contraste AA) */
-  --text-primary: #1a1815;
-  --text-secondary: #57534e;
-  --text-muted: #79746a;
+  /* Texto — slate frio */
+  --text-primary: #1a2730;
+  --text-secondary: #5a6b76;
+  --text-muted: #6b7a85;
 
-  /* Bordas finas — o "segredo" do look editorial */
-  --border-color: #e6e2d9;
-  --border-color-strong: #d8d3c7;
+  /* Bordas claras e finas */
+  --border-color: #e3e8ed;
+  --border-color-strong: #cbd5dc;
 
-  /* Acento único */
-  --color-orvia-orange-hover: #d26f18;
+  /* Acento */
+  --color-orvia-orange-hover: #d26e15;
   --on-accent: #ffffff;
 
   /* Raios */
   --radius-sm: 0.5rem;
-  --radius: 0.75rem;
-  --radius-lg: 1rem;
+  --radius: 0.875rem;
+  --radius-lg: 1.125rem;
 
-  /* Sombras — discretas (quase só borda) */
-  --shadow-card: 0 1px 2px rgba(26, 24, 21, 0.04);
-  --shadow-hover: 0 4px 16px rgba(26, 24, 21, 0.08);
+  /* Sombras — suaves e limpas */
+  --shadow-card: 0 4px 24px rgba(26, 58, 74, 0.08);
+  --shadow-hover: 0 12px 40px rgba(26, 58, 74, 0.14);
 
   /* Movimento */
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
@@ -64,33 +64,33 @@
   /* Layout */
   --max-content: 72rem;
 
-  --hero-gradient: linear-gradient(135deg, #faf9f5 0%, #f2f0e9 55%, #f7ede2 100%);
+  --hero-gradient: linear-gradient(180deg, #ffffff 0%, #f6f8fa 100%);
 }
 
 /* -----------------------------------------------------------
-   2. TOKENS — Tema escuro · warm dark
+   2. TOKENS — Tema escuro (navy frio, opcional · o padrão é claro)
    ----------------------------------------------------------- */
 [data-theme="dark"] {
   color-scheme: dark;
 
-  --bg-base: #1a1815;
-  --bg-surface: #262320;
-  --bg-surface-alt: #2f2b26;
-  --bg-header: rgba(26, 24, 21, 0.85);
+  --bg-base: #0f1b22;
+  --bg-surface: #15252f;
+  --bg-surface-alt: #1b2d38;
+  --bg-header: rgba(15, 27, 34, 0.85);
 
-  --text-primary: #ede9e0;
-  --text-secondary: #b5afa3;
-  --text-muted: #8a847a;
+  --text-primary: #eaf1f5;
+  --text-secondary: #a7bac5;
+  --text-muted: #8298a5;
 
-  --border-color: #38332c;
-  --border-color-strong: #454037; /* corrige #45403709 (alpha inválido) do arquivo */
+  --border-color: #253a47;
+  --border-color-strong: #32505f;
 
   --color-orvia-orange-hover: #f08a30;
 
-  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.3);
-  --shadow-hover: 0 6px 24px rgba(0, 0, 0, 0.4);
+  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.3);
+  --shadow-hover: 0 12px 40px rgba(0, 0, 0, 0.45);
 
-  --hero-gradient: linear-gradient(135deg, #1a1815 0%, #262320 55%, #2a2420 100%);
+  --hero-gradient: linear-gradient(180deg, #0f1b22 0%, #15252f 100%);
 }
 
 /* -----------------------------------------------------------
@@ -140,13 +140,23 @@ body {
 /* -----------------------------------------------------------
    4. Tipografia editorial
    ----------------------------------------------------------- */
-.font-serif,
+/* Títulos limpos em sans (estilo corporativo TOTVS).
+   Sem `color` aqui: herdam --text-primary do body, e utilitárias
+   como text-white (ex.: no banner escuro) continuam funcionando. */
 h1,
-h2 {
-  font-family: var(--font-serif);
+h2,
+h3 {
+  font-family: var(--font-sans);
+  font-weight: 800;
   letter-spacing: -0.02em;
-  line-height: 1.16;
-  font-weight: 600;
+  line-height: 1.15;
+}
+
+/* Classe mantida por compatibilidade — agora também sans bold (sem serifa) */
+.font-serif {
+  font-family: var(--font-sans);
+  font-weight: 800;
+  letter-spacing: -0.02em;
 }
 
 /* -----------------------------------------------------------
@@ -225,6 +235,8 @@ h2 {
 
 .btn-primary:hover {
   background-color: var(--color-orvia-orange-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
 }
 
 .btn-secondary {
@@ -266,8 +278,8 @@ h2 {
 }
 
 .card:hover {
-  border-color: var(--color-orvia-orange);
-  transform: translateY(-2px);
+  border-color: transparent;
+  transform: translateY(-4px);
   box-shadow: var(--shadow-hover);
 }
 
