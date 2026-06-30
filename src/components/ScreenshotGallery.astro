@@ -1,0 +1,105 @@
+---
+import { SCREENSHOTS } from '../data/site';
+---
+
+<section id="telas" class="py-20 sm:py-28" aria-labelledby="telas-heading">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+    <div class="mb-10 text-center">
+      <div class="section-accent mx-auto mb-4"></div>
+      <h2 id="telas-heading" class="font-serif mb-3 text-3xl sm:text-4xl">
+        Telas do sistema
+      </h2>
+      <p class="mx-auto max-w-2xl text-secondary">
+        Interface real da demo v2.1.2 — clique em qualquer tela para ampliar.
+      </p>
+    </div>
+
+    <!-- Controles do carrossel -->
+    <div class="mb-4 flex items-center justify-between gap-4">
+      <button
+        type="button"
+        id="gallery-prev"
+        class="btn-ghost rounded-full !min-h-[2.75rem] !w-[2.75rem] !p-0"
+        aria-label="Tela anterior"
+      >
+        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+      <span id="gallery-counter" class="text-sm font-medium text-muted" aria-live="polite">
+        1 / {SCREENSHOTS.length}
+      </span>
+      <button
+        type="button"
+        id="gallery-next"
+        class="btn-ghost rounded-full !min-h-[2.75rem] !w-[2.75rem] !p-0"
+        aria-label="Próxima tela"
+      >
+        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Carrossel -->
+    <div
+      id="gallery-track"
+      class="gallery-track flex gap-4 overflow-x-auto pb-4"
+      role="region"
+      aria-label="Galeria de telas do ORVIA"
+    >
+      {
+        SCREENSHOTS.map((shot, index) => (
+          <figure
+            class="gallery-slide card shrink-0 cursor-pointer overflow-hidden"
+            style="width: min(85vw, 640px);"
+            data-index={index}
+            data-src={shot.src}
+            data-caption={shot.caption}
+            tabindex="0"
+            role="button"
+            aria-label={`Ampliar: ${shot.caption}`}
+          >
+            <img
+              src={shot.src}
+              alt={shot.alt}
+              width="640"
+              height="400"
+              class="w-full"
+              loading={index < 2 ? 'eager' : 'lazy'}
+            />
+            <figcaption class="border-t border-[var(--border-color)] px-4 py-3 text-sm font-medium text-secondary">
+              {shot.caption}
+            </figcaption>
+          </figure>
+        ))
+      }
+    </div>
+
+  </div>
+
+  <!-- Lightbox -->
+  <div
+    id="lightbox"
+    class="lightbox"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Visualização ampliada da tela"
+    hidden
+  >
+    <button
+      type="button"
+      id="lightbox-close"
+      class="absolute top-4 right-4 flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20"
+      aria-label="Fechar visualização"
+    >
+      <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+    <figure class="px-4 text-center">
+      <img id="lightbox-img" src="" alt="" />
+      <figcaption id="lightbox-caption" class="mt-3 text-sm text-white/80"></figcaption>
+    </figure>
+  </div>
+</section>

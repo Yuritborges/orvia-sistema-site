@@ -1,0 +1,125 @@
+---
+import { SITE, LINKS, ASSETS, SCREENSHOTS } from '../data/site';
+
+const heroScreenshot = SCREENSHOTS[1]; // Pedido de Compra
+---
+
+<section id="inicio" class="hero-bg relative overflow-hidden pt-24 pb-16 sm:pt-28 sm:pb-24">
+  <!-- Decoração sutil -->
+  <div
+    class="pointer-events-none absolute -top-32 -right-32 h-96 w-96 rounded-full opacity-20"
+    style="background: radial-gradient(circle, var(--color-orvia-orange) 0%, transparent 70%);"
+    aria-hidden="true"
+  ></div>
+
+  <div class="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+    <div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+      <!-- Texto -->
+      <div class="fade-in text-center lg:text-left">
+        <img
+          src={ASSETS.logoLight}
+          alt="ORVIA — Pedidos de Compra"
+          width="220"
+          height="60"
+          class="mx-auto mb-6 h-auto w-48 lg:mx-0 logo-light"
+          loading="eager"
+        />
+        <img
+          src={ASSETS.logoDark}
+          alt="ORVIA — Pedidos de Compra"
+          width="220"
+          height="60"
+          class="mx-auto mb-6 hidden h-auto w-48 lg:mx-0 logo-dark"
+          loading="eager"
+        />
+
+        <h1 class="font-serif mb-4 text-4xl leading-tight sm:text-5xl lg:text-[3.25rem]">
+          {SITE.tagline}
+        </h1>
+
+        <p class="mb-6 text-lg text-secondary sm:text-xl">
+          Sistema desktop para pedidos, cotações, ferramentas e locações na construção civil
+        </p>
+
+        <div class="mb-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center lg:justify-start">
+          <a
+            href={LINKS.release}
+            class="btn btn-primary w-full sm:w-auto"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            </svg>
+            Baixar demo (Windows)
+          </a>
+          <a
+            href={LINKS.github}
+            class="btn btn-secondary w-full sm:w-auto"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" />
+            </svg>
+            Ver no GitHub
+          </a>
+        </div>
+
+        <div class="badge-demo mx-auto lg:mx-0">
+          <svg class="h-3.5 w-3.5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+          </svg>
+          Demo portfólio · dados fictícios · v{SITE.version}
+        </div>
+
+        <dl class="mt-8 grid max-w-md grid-cols-3 gap-4 border-t border-[var(--border-color)] pt-6 text-center mx-auto lg:mx-0 lg:text-left">
+          <div class="flex flex-col-reverse">
+            <dt class="text-xs font-medium text-muted sm:text-sm">módulos integrados</dt>
+            <dd class="m-0 text-2xl font-extrabold sm:text-3xl" style="color: var(--color-orvia-orange);">6</dd>
+          </div>
+          <div class="flex flex-col-reverse">
+            <dt class="text-xs font-medium text-muted sm:text-sm">offline</dt>
+            <dd class="m-0 text-2xl font-extrabold sm:text-3xl" style="color: var(--color-orvia-orange);">100%</dd>
+          </div>
+          <div class="flex flex-col-reverse">
+            <dt class="text-xs font-medium text-muted sm:text-sm">fornecedores/cotação</dt>
+            <dd class="m-0 text-2xl font-extrabold sm:text-3xl" style="color: var(--color-orvia-orange);">3</dd>
+          </div>
+        </dl>
+      </div>
+
+      <!-- Screenshot -->
+      <div class="fade-in relative mx-auto w-full max-w-xl lg:max-w-none">
+        <div class="card overflow-hidden p-2 sm:p-3">
+          <img
+            src={heroScreenshot.src}
+            alt={heroScreenshot.alt}
+            width="800"
+            height="500"
+            class="w-full rounded-lg"
+            loading="eager"
+          />
+        </div>
+        <p class="mt-3 text-center text-sm text-muted">{heroScreenshot.caption}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .logo-dark {
+    display: none;
+  }
+  [data-theme='dark'] .logo-light {
+    display: none;
+  }
+  [data-theme='dark'] .logo-dark {
+    display: block;
+  }
+  @media (min-width: 1024px) {
+    [data-theme='dark'] .logo-dark {
+      display: block;
+    }
+  }
+</style>

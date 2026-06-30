@@ -1,0 +1,454 @@
+/* ===========================================================
+   ORVIA — global.css
+   Estética editorial premium (inspirada na Anthropic/Claude)
+   Tailwind 4 + CSS custom properties
+   Fontes carregadas via <link> no Layout.astro (não reimportar aqui).
+   =========================================================== */
+
+@import "tailwindcss";
+
+/* -----------------------------------------------------------
+   Marca + fontes expostas ao Tailwind (gera utilitárias e :root vars)
+   ----------------------------------------------------------- */
+@theme {
+  --color-orvia-blue: #1a3a4a;
+  --color-orvia-blue-light: #234d61;
+  --color-orvia-blue-dark: #122832;
+  --color-orvia-orange: #e67e22;
+  --color-orvia-orange-light: #f39c12;
+  --color-orvia-orange-dark: #d35400;
+
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Source Serif 4", Georgia, "Times New Roman", ui-serif, serif;
+}
+
+/* -----------------------------------------------------------
+   1. TOKENS — Tema claro (default) · off-white quente
+   ----------------------------------------------------------- */
+:root {
+  color-scheme: light;
+
+  /* Superfícies */
+  --bg-base: #faf9f5;
+  --bg-page: var(--bg-base); /* alias usado por body */
+  --bg-surface: #ffffff;
+  --bg-surface-alt: #f2f0e9;
+  --bg-header: rgba(250, 249, 245, 0.85);
+
+  /* Texto (muted levemente mais escuro que o arquivo base p/ contraste AA) */
+  --text-primary: #1a1815;
+  --text-secondary: #57534e;
+  --text-muted: #79746a;
+
+  /* Bordas finas — o "segredo" do look editorial */
+  --border-color: #e6e2d9;
+  --border-color-strong: #d8d3c7;
+
+  /* Acento único */
+  --color-orvia-orange-hover: #d26f18;
+  --on-accent: #ffffff;
+
+  /* Raios */
+  --radius-sm: 0.5rem;
+  --radius: 0.75rem;
+  --radius-lg: 1rem;
+
+  /* Sombras — discretas (quase só borda) */
+  --shadow-card: 0 1px 2px rgba(26, 24, 21, 0.04);
+  --shadow-hover: 0 4px 16px rgba(26, 24, 21, 0.08);
+
+  /* Movimento */
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --dur: 0.22s;
+
+  /* Layout */
+  --max-content: 72rem;
+
+  --hero-gradient: linear-gradient(135deg, #faf9f5 0%, #f2f0e9 55%, #f7ede2 100%);
+}
+
+/* -----------------------------------------------------------
+   2. TOKENS — Tema escuro · warm dark
+   ----------------------------------------------------------- */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg-base: #1a1815;
+  --bg-surface: #262320;
+  --bg-surface-alt: #2f2b26;
+  --bg-header: rgba(26, 24, 21, 0.85);
+
+  --text-primary: #ede9e0;
+  --text-secondary: #b5afa3;
+  --text-muted: #8a847a;
+
+  --border-color: #38332c;
+  --border-color-strong: #454037; /* corrige #45403709 (alpha inválido) do arquivo */
+
+  --color-orvia-orange-hover: #f08a30;
+
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-hover: 0 6px 24px rgba(0, 0, 0, 0.4);
+
+  --hero-gradient: linear-gradient(135deg, #1a1815 0%, #262320 55%, #2a2420 100%);
+}
+
+/* -----------------------------------------------------------
+   3. Base / Reset leve
+   ----------------------------------------------------------- */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  background-color: var(--bg-page);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.65;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+
+/* Foco visível para acessibilidade */
+:focus-visible {
+  outline: 2px solid var(--color-orvia-orange);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: var(--color-orvia-orange);
+  color: #fff;
+}
+
+/* -----------------------------------------------------------
+   4. Tipografia editorial
+   ----------------------------------------------------------- */
+.font-serif,
+h1,
+h2 {
+  font-family: var(--font-serif);
+  letter-spacing: -0.02em;
+  line-height: 1.16;
+  font-weight: 600;
+}
+
+/* -----------------------------------------------------------
+   5. Utilitários de superfície / texto
+   ----------------------------------------------------------- */
+.surface {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+}
+
+.surface-alt {
+  background-color: var(--bg-surface-alt);
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+.text-muted {
+  color: var(--text-muted);
+}
+
+.hero-bg {
+  background: var(--hero-gradient);
+}
+
+/* Skip link */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  z-index: 100;
+  padding: 0.75rem 1.25rem;
+  background: var(--color-orvia-orange);
+  color: #fff;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  transition: top var(--dur) var(--ease);
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* -----------------------------------------------------------
+   6. Botões
+   ----------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  padding: 0.75rem 1.5rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  line-height: 1;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color var(--dur) var(--ease),
+    border-color var(--dur) var(--ease), color var(--dur) var(--ease),
+    transform var(--dur) var(--ease);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+/* Acento único: laranja sólido, sem gradiente */
+.btn-primary {
+  background-color: var(--color-orvia-orange);
+  color: var(--on-accent);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-orvia-orange-hover);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--text-primary);
+  border-color: var(--border-color-strong);
+}
+
+.btn-secondary:hover {
+  background-color: var(--bg-surface-alt);
+  border-color: var(--color-orvia-orange);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+  min-height: 2.75rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-sm);
+  transition: color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+
+.btn-ghost:hover {
+  color: var(--text-primary);
+  border-color: var(--color-orvia-orange);
+}
+
+/* -----------------------------------------------------------
+   7. Cards (borda fina > sombra) — padding controlado pelo markup
+   ----------------------------------------------------------- */
+.card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+  transition: border-color var(--dur) var(--ease), transform var(--dur) var(--ease),
+    box-shadow var(--dur) var(--ease);
+}
+
+.card:hover {
+  border-color: var(--color-orvia-orange);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
+
+/* -----------------------------------------------------------
+   8. Detalhes (badge demo, divisor de seção, tech badges)
+   ----------------------------------------------------------- */
+.badge-demo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.875rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  background-color: rgba(230, 126, 34, 0.1);
+  color: var(--color-orvia-orange-dark);
+  border: 1px solid rgba(230, 126, 34, 0.22);
+}
+
+[data-theme="dark"] .badge-demo {
+  background-color: rgba(230, 126, 34, 0.15);
+  color: var(--color-orvia-orange-light);
+}
+
+.tech-badge {
+  display: inline-flex;
+  padding: 0.375rem 0.875rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  background-color: var(--bg-surface-alt);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+.section-accent {
+  width: 3rem;
+  height: 4px;
+  background: var(--color-orvia-orange);
+  border-radius: 2px;
+}
+
+/* Rótulo de seção (eyebrow) */
+.eyebrow {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-orvia-orange);
+  margin-bottom: 0.6rem;
+}
+
+/* Selo de destaque no card de plano */
+.plan-featured {
+  position: relative;
+  border-color: var(--color-orvia-orange);
+}
+
+.plan-featured::before {
+  content: "Mais escolhido";
+  position: absolute;
+  top: 0;
+  right: 1.25rem;
+  transform: translateY(-50%);
+  background: var(--color-orvia-orange);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+}
+
+/* -----------------------------------------------------------
+   9. Galeria (carrossel)
+   ----------------------------------------------------------- */
+.gallery-track {
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-orvia-orange) transparent;
+}
+
+.gallery-track::-webkit-scrollbar {
+  height: 6px;
+}
+
+.gallery-track::-webkit-scrollbar-thumb {
+  background: var(--color-orvia-orange);
+  border-radius: 3px;
+}
+
+.gallery-slide {
+  scroll-snap-align: start;
+}
+
+/* -----------------------------------------------------------
+   10. Lightbox
+   ----------------------------------------------------------- */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.88);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s var(--ease), visibility 0.25s var(--ease);
+}
+
+.lightbox.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.lightbox img {
+  max-width: min(95vw, 1200px);
+  max-height: 90vh;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+}
+
+/* -----------------------------------------------------------
+   11. Header scrolled + menu mobile
+   ----------------------------------------------------------- */
+.header-scrolled {
+  box-shadow: 0 1px 0 var(--border-color), 0 6px 20px rgba(26, 24, 21, 0.05);
+}
+
+[data-theme="dark"] .header-scrolled {
+  box-shadow: 0 1px 0 var(--border-color), 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.mobile-menu {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s var(--ease);
+}
+
+.mobile-menu.is-open {
+  max-height: 24rem;
+}
+
+/* -----------------------------------------------------------
+   12. Animação de entrada (gated por prefers-reduced-motion)
+   ----------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  .fade-in {
+    animation: fadeIn 0.6s var(--ease) forwards;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+/* -----------------------------------------------------------
+   13. Scrollbar discreta (desktop)
+   ----------------------------------------------------------- */
+@media (pointer: fine) {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-color-strong) transparent;
+  }
+  *::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  *::-webkit-scrollbar-thumb {
+    background-color: var(--border-color-strong);
+    border-radius: 9999px;
+    border: 2px solid var(--bg-base);
+  }
+}

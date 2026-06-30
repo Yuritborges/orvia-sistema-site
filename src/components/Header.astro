@@ -1,0 +1,121 @@
+---
+import { NAV_ITEMS, ASSETS, LINKS } from '../data/site';
+---
+
+<header
+  id="header"
+  class="fixed top-0 left-0 right-0 z-50 border-b border-[var(--border-color)] backdrop-blur-md transition-shadow"
+  style="background-color: var(--bg-header);"
+>
+  <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
+    <!-- Logo -->
+    <a href="#inicio" class="flex items-center gap-2 rounded-lg" aria-label="ORVIA — Início">
+      <img
+        src={ASSETS.icon}
+        alt=""
+        width="36"
+        height="36"
+        class="h-9 w-9"
+        aria-hidden="true"
+      />
+      <span class="text-lg font-bold tracking-tight text-[var(--text-primary)]">
+        ORVIA
+      </span>
+    </a>
+
+    <!-- Nav desktop -->
+    <nav class="hidden items-center gap-1 md:flex" aria-label="Navegação principal">
+      {
+        NAV_ITEMS.map((item) => (
+          <a
+            href={item.href}
+            class="rounded-lg px-3 py-2 text-sm font-medium text-[var(--text-secondary)] transition-colors hover:text-[var(--color-orvia-orange)]"
+          >
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <!-- Ações desktop -->
+    <div class="hidden items-center gap-2 md:flex">
+      <button
+        id="theme-toggle"
+        type="button"
+        class="btn-ghost rounded-lg !min-h-[2.75rem] !px-3"
+        aria-label="Alternar tema claro/escuro"
+      >
+        <svg id="icon-sun" class="h-5 w-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+        </svg>
+        <svg id="icon-moon" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+        </svg>
+      </button>
+      <a href={LINKS.release} class="btn btn-primary text-sm !py-2" target="_blank" rel="noopener noreferrer">
+        Baixar demo
+      </a>
+    </div>
+
+    <!-- Hamburger mobile -->
+    <div class="flex items-center gap-2 md:hidden">
+      <button
+        id="theme-toggle-mobile"
+        type="button"
+        class="btn-ghost rounded-lg !min-h-[2.75rem] !px-3"
+        aria-label="Alternar tema claro/escuro"
+      >
+        <svg class="icon-sun-mobile h-5 w-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+        </svg>
+        <svg class="icon-moon-mobile h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+        </svg>
+      </button>
+      <button
+        id="menu-toggle"
+        type="button"
+        class="btn-ghost rounded-lg !min-h-[2.75rem] !px-3"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        aria-label="Abrir menu de navegação"
+      >
+        <svg id="icon-menu" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <svg id="icon-close" class="hidden h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Menu mobile -->
+  <nav
+    id="mobile-menu"
+    class="mobile-menu border-t border-[var(--border-color)] md:hidden"
+    aria-label="Navegação mobile"
+    style="background-color: var(--bg-header);"
+  >
+    <div class="flex flex-col gap-1 px-4 py-3">
+      {
+        NAV_ITEMS.map((item) => (
+          <a
+            href={item.href}
+            class="mobile-nav-link rounded-lg px-4 py-3 text-base font-medium text-[var(--text-secondary)] hover:bg-[var(--bg-surface-alt)] hover:text-[var(--color-orvia-orange)]"
+          >
+            {item.label}
+          </a>
+        ))
+      }
+      <a
+        href={LINKS.release}
+        class="btn btn-primary mt-2 w-full"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Baixar demo (Windows)
+      </a>
+    </div>
+  </nav>
+</header>

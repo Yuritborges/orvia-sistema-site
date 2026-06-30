@@ -1,0 +1,109 @@
+---
+import '../styles/global.css';
+import { SITE, ASSETS, LINKS } from '../data/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = SITE.title,
+  description = SITE.description,
+} = Astro.props;
+
+const pageUrl = Astro.url.href;
+// OG/Twitter exigem URL absoluta da imagem
+const ogImageUrl = new URL(ASSETS.ogImage, Astro.site ?? Astro.url.origin).href;
+
+// Schema.org — dados estruturados do produto desktop apresentado na landing.
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'ORVIA — Pedidos de Compra',
+  description: SITE.description,
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Windows 10, Windows 11',
+  softwareVersion: SITE.version,
+  url: pageUrl,
+  downloadUrl: LINKS.release,
+  installUrl: LINKS.installer,
+  screenshot: ASSETS.ogImage,
+  image: ASSETS.ogImage,
+  inLanguage: 'pt-BR',
+  author: {
+    '@type': 'Person',
+    name: SITE.author,
+    url: LINKS.linkedin,
+  },
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'BRL',
+    availability: 'https://schema.org/InStock',
+  },
+};
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- SEO -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content={SITE.keywords} />
+    <meta name="author" content={SITE.author} />
+    <link rel="canonical" href={pageUrl} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:url" content={pageUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:site_name" content="ORVIA" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    <!-- Dados estruturados (Schema.org SoftwareApplication) -->
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+
+    <!-- Favicons (gerados a partir do ícone hexagonal ORVIA) -->
+    <link rel="icon" type="image/png" sizes="32x32" href={ASSETS.favicon32} />
+    <link rel="icon" type="image/png" sizes="16x16" href={ASSETS.favicon16} />
+    <link rel="apple-touch-icon" sizes="180x180" href={ASSETS.appleTouchIcon} />
+
+    <!-- Fonte -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Tema: evita flash — lê preferência salva ou do sistema -->
+    <script is:inline>
+      (function () {
+        const stored = localStorage.getItem('orvia-theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (stored === 'dark' || (!stored && prefersDark)) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      })();
+    </script>
+  </head>
+  <body class="min-h-screen antialiased">
+    <a href="#conteudo-principal" class="skip-link">Ir para o conteúdo</a>
+    <slot />
+    <script src="../scripts/main.ts"></script>
+  </body>
+</html>
