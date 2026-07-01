@@ -1,7 +1,6 @@
 ---
-import { SITE, ASSETS, SCREENSHOTS, waLink } from '../data/site';
+import { SITE, ASSETS, waLink } from '../data/site';
 
-const heroScreenshot = SCREENSHOTS[1]; // Pedido de Compra
 const demoMessage = waLink(
   'Olá! Gostaria de agendar uma demonstração do ORVIA para a minha construtora.'
 );
@@ -85,25 +84,113 @@ const demoMessage = waLink(
         </dl>
       </div>
 
-      <!-- Screenshot -->
+      <!-- Vídeo do mascote (fundo transparente) -->
       <div class="fade-in relative mx-auto w-full max-w-xl lg:max-w-none">
-        <div class="card overflow-hidden p-2 sm:p-3">
-          <img
-            src={heroScreenshot.src}
-            alt={heroScreenshot.alt}
-            width="800"
-            height="500"
-            class="w-full rounded-lg"
-            loading="eager"
-          />
+        <div id="hero-video-wrap" class="hero-video-wrap relative mx-auto w-full" data-muted="true">
+          <video
+            id="hero-video"
+            class="hero-video mx-auto w-full"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="auto"
+            aria-label="Mascote ORVIA apresentando o sistema"
+          >
+            <source src={ASSETS.heroVideoWebm} type="video/webm" />
+            <source src={ASSETS.heroVideoMp4} type="video/mp4" />
+          </video>
+
+          <button
+            id="hero-video-sound"
+            class="hero-sound-btn"
+            type="button"
+            aria-label="Ativar ou desativar o som do vídeo"
+          >
+            <!-- ícone: mudo -->
+            <svg class="hero-sound-icon icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M11 5 6 9H3v6h3l5 4V5z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17 9l4 6m0-6l-4 6" />
+            </svg>
+            <!-- ícone: com som -->
+            <svg class="hero-sound-icon icon-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M11 5 6 9H3v6h3l5 4V5z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M16 8.5a5 5 0 010 7M18.5 6a8 8 0 010 12" />
+            </svg>
+            <span class="hero-sound-hint">Passe o mouse para ouvir</span>
+          </button>
         </div>
-        <p class="mt-3 text-center text-sm text-muted">{heroScreenshot.caption}</p>
       </div>
     </div>
   </div>
 </section>
 
 <style>
+  /* Fundo branco no hero para reforçar o efeito 3D do mascote flutuando */
+  .hero-bg {
+    background: #ffffff;
+  }
+  [data-theme='dark'] .hero-bg {
+    background: var(--bg-page);
+  }
+
+  .hero-video-wrap {
+    max-width: 560px;
+  }
+
+  .hero-video {
+    display: block;
+    max-height: 560px;
+    object-fit: contain;
+    /* WebM transparente flutua sobre o fundo; sem caixa/borda */
+    background: transparent;
+  }
+
+  .hero-sound-btn {
+    position: absolute;
+    bottom: 0.75rem;
+    right: 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 0.7rem;
+    border-radius: 9999px;
+    border: 1px solid var(--border-color);
+    background: color-mix(in srgb, var(--bg-surface) 88%, transparent);
+    color: var(--text-secondary);
+    cursor: pointer;
+    backdrop-filter: blur(6px);
+    box-shadow: var(--shadow);
+    transition: color var(--dur) var(--ease), border-color var(--dur) var(--ease),
+      background var(--dur) var(--ease), transform var(--dur) var(--ease);
+  }
+  .hero-sound-btn:hover {
+    color: var(--color-orvia-orange);
+    border-color: var(--color-orvia-orange);
+    transform: translateY(-1px);
+  }
+  .hero-sound-icon {
+    width: 1.15rem;
+    height: 1.15rem;
+    flex-shrink: 0;
+  }
+  .hero-sound-hint {
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  /* Alterna os ícones conforme o estado (data-muted no wrapper) */
+  .hero-video-wrap[data-muted='true'] .icon-on {
+    display: none;
+  }
+  .hero-video-wrap[data-muted='false'] .icon-muted {
+    display: none;
+  }
+  /* Quando já está com som, encurta o texto */
+  .hero-video-wrap[data-muted='false'] .hero-sound-hint {
+    display: none;
+  }
+
   .logo-dark {
     display: none;
   }
@@ -119,3 +206,39 @@ const demoMessage = waLink(
     }
   }
 </style>
+
+<script>
+  const wrap = document.getElementById('hero-video-wrap');
+  const video = document.getElementById('hero-video') as HTMLVideoElement | null;
+  const btn = document.getElementById('hero-video-sound');
+
+  if (wrap && video && btn) {
+    // true = usuário fixou o som ligado (clique); ignora o hover
+    let locked = false;
+
+    const setMuted = (muted: boolean) => {
+      video.muted = muted;
+      wrap.dataset.muted = String(muted);
+      if (!muted) {
+        video.play().catch(() => {});
+      }
+    };
+
+    setMuted(true);
+
+    // Hover: passa o mouse => liga o som; tira o mouse => muta
+    wrap.addEventListener('mouseenter', () => {
+      if (!locked) setMuted(false);
+    });
+    wrap.addEventListener('mouseleave', () => {
+      if (!locked) setMuted(true);
+    });
+
+    // Clique no botão: fixa/solta o som (útil também no celular, onde não há hover)
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      locked = !locked;
+      setMuted(!locked);
+    });
+  }
+</script>

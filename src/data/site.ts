@@ -50,6 +50,9 @@ export const ASSETS = {
   appleTouchIcon: asset('logos/apple-touch-icon.png'),
   /** Imagem para Open Graph / Twitter (caminho; o Layout resolve a URL absoluta) */
   ogImage: asset('screenshots/pedido_compra.png'),
+  /** Vídeo do mascote no hero — WebM com transparência (preferencial) + fallback MP4 */
+  heroVideoWebm: asset('demo-video/mascote.webm'),
+  heroVideoMp4: asset('demo-video/mascote.mp4'),
 } as const;
 
 export const NAV_ITEMS = [
